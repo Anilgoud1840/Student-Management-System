@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Update Student - Student Management</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff, #fce7f3, #dbeafe);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Header */
+
+        .header {
+            background: linear-gradient(110deg, #4338ca, #7c3aed, #db2777);
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(79, 70, 229, 0.2);
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 27px;
+            color: white;
+        }
+
+        .home-btn {
+            background: white;
+            color: #4338ca;
+            padding: 11px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .home-btn:hover {
+            background: #e0e7ff;
+        }
+
+        /* Main Container */
+
+        .main {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background: linear-gradient(145deg, #ffffff, #eef2ff);
+            padding: 35px;
+            border-radius: 18px;
+            border: 1px solid #c7d2fe;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+        }
+
+        .form-title {
+            text-align: center;
+            color: #4338ca;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        /* Form Fields */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Buttons */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .update-btn {
+            background: linear-gradient(110deg, #4338ca, #7c3aed);
+            color: white;
+        }
+
+        .update-btn:hover {
+            background: #3730a3;
+        }
+
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #334155;
+            text-decoration: none;
+            text-align: center;
+            padding: 14px;
+            border-radius: 8px;
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .cancel-btn:hover {
+            background: #cbd5e1;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <h1>Student Management</h1>
+
+        <a href="/" class="home-btn">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- Main Section -->
+
+    <main class="main">
+
+        <div class="form-card">
+
+            <h2 class="form-title">
+                Update Student Details
+            </h2>
+
+            <p class="subtitle">
+                Edit the student's information below.
+            </p>
+
+
+            <!-- Update Student Form -->
+
+            <form action="/students/update/{{ student[0] }}" method="post">
+
+                <!-- Student Name -->
+
+                <div class="form-group">
+
+                    <label for="name">Student Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ student[1] }}"
+                        placeholder="Enter student name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Age -->
+
+                <div class="form-group">
+
+                    <label for="age">Age</label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        value="{{ student[2] }}"
+                        min="18"
+                        max="60"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Gender -->
+
+                <div class="form-group">
+
+                    <label for="gender">Gender</label>
+
+                    <select id="gender" name="gender" required>
+
+                        <option value="Male"
+                            {% if student[3] == 'Male' %}selected{% endif %}>
+                            Male
+                        </option>
+
+                        <option value="Female"
+                            {% if student[3] == 'Female' %}selected{% endif %}>
+                            Female
+                        </option>
+
+                        <option value="Other"
+                            {% if student[3] == 'Other' %}selected{% endif %}>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Marks -->
+
+                <div class="form-group">
+
+                    <label for="marks">Marks</label>
+
+                    <input
+                        type="number"
+                        id="marks"
+                        name="marks"
+                        value="{{ student[4] }}"
+                        min="0"
+                        max="100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Course -->
+
+                <div class="form-group">
+
+                    <label for="course">Course</label>
+
+                    <input
+                        type="text"
+                        id="course"
+                        name="course"
+                        value="{{ student[5] }}"
+                        placeholder="Enter course name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Image URL -->
+
+                <div class="form-group">
+
+                    <label for="image">Student Image URL</label>
+
+                    <input
+                        type="url"
+                        id="image"
+                        name="image"
+                        value="{{ student[6] or '' }}"
+                        placeholder="Enter image URL"
+                    >
+
+                </div>
+
+
+                <!-- Attendance Status -->
+
+                <div class="form-group">
+
+                    <label for="status">Attendance Status</label>
+
+                    <select id="status" name="status" required>
+
+                        <option value="1"
+                            {% if student[7] == 1 %}selected{% endif %}>
+                            Present
+                        </option>
+
+                        <option value="0"
+                            {% if student[7] == 0 %}selected{% endif %}>
+                            Absent
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="buttons">
+
+                    <button type="submit" class="update-btn">
+                        Update Student
+                    </button>
+
+                    <a href="/" class="cancel-btn">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
